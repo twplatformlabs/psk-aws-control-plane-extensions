@@ -1,4 +1,5 @@
-
+#!/usr/bin/env bash
+set -eo pipefail
 # createOIDCAssumableRole ()  ================================================================================
 #
 # Kubernetes ServiceAccount role for interacting with AWS API
@@ -66,6 +67,8 @@ createOIDCAssumableRole () {
   ]
 }
 EOF
+
+  awsAssumeRole "$aws_account_id" "$aws_assume_role"
 }
 
   # ASSUMEROLE

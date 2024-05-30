@@ -11,16 +11,6 @@ CLUSTER_OIDC_ISSUER_URL=$(jq -er .cluster_oidc_issuer_url $cluster_name.json)
 # create cert-manager service account role
 createOIDCAssumableRole cert-manager "" $AWS_ACCOUNT_ID $cluster_name $AWS_ASSUME_ROLE $CLUSTER_OIDC_ISSUER_URL cert-manager
 
-# $1 = service name
-# $2 = policy folder path; default = 'policies'
-# $3 = aws account id
-# $4 = cluster name
-# $5 = aws role to assume to create Role
-# $6 = eks cluster oidc provider url
-# $7 = kubernetes namespace
-# $8 = iam role path
-# $9 = iam policy path
-
 echo "cert-manager chart version $CHART_VERSION"
 # helm repo add jetstack https://charts.jetstack.io --force-update
 # helm repo update
