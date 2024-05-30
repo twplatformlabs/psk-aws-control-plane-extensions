@@ -91,12 +91,12 @@ EOF
   # create the service account role policy
   aws iam create-policy --path "/$iam_policy_path/" --policy-name "$cluster_name-$service_name-role-policy" --policy-document "file://$policy_path/$service_name-role-policy.json"
 
+  # create the service account role
+  aws iam create-role --path "/$iami_role_path/" --role-name "$cluster_name-$service_name-sa" --assume-role-policy-document "file://$policy_path/$service_name-trust-policy.json" --description "oidc assumable role $cluster_name-$service_name"
+
+  # attach role policy to role
+  aws iam attach-role-policy --role-name "$cluster_name-$service_name-sa" --policy-arn "arn:aws:iam::$aws_account_id:policy/$iam_policy_path/$cluster_name-$service_name-role-policy"
+
 }
 
-  # ASSUMEROLE
   
-  # # create the service account role
-  # aws iam create-role --path $iami_role_path --role-name "$cluster_name-$service_name-sa" --assume-role-policy-document "file://$policy_path/$service_name-trust-policy.json" --description "oidc assumable role $cluster_name-$service_name"
-
-  # # attach role policy to role
-  # aws iam attach-role-policy --role-name "$cluster_name-$service_name-sa" --policy-arn "arn:aws:iam::$aws_account_id:policy/$iam_policy_path/$cluster_name-$service_name-role-policy"
