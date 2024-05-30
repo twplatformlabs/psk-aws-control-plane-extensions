@@ -32,39 +32,39 @@ awsAssumeRole () {
 # $9 = iam policy path
 
 createOIDCAssumableRole () {
-  # service_name="$1"
-  # policy_path="${2:-policies}"
-  # aws_account_id="$3"
-  # cluster_name="$4"
-  # aws_assume_role="$5"
-  # cluster_oidc_issuer_url="$6"
-  # namespace="$7"
-  # iam_role_path="${8:-PSKRoles}"
-  # iam_policy_path="${9:-PSKPolicies}"
+  service_name="$1"
+  policy_path="${2:-policies}"
+  aws_account_id="$3"
+  cluster_name="$4"
+  aws_assume_role="$5"
+  cluster_oidc_issuer_url="$6"
+  namespace="$7"
+  iam_role_path="${8:-PSKRoles}"
+  iam_policy_path="${9:-PSKPolicies}"
 
-  # echo "INFO:"
-  # echo "service_name = $service_name"
-  # echo "policy_path = $policy_path"
-  # echo "aws_account_id = $aws_account_id"
-  # echo "cluster_name = $cluster_name"
-  # echo "namespace = $namespace"
-  # echo "aws_assume_role = $aws_assume_role"
-  # echo "cluster_oidc_issuer_url = $cluster_oidc_issuer_url"
-  # echo "iam_role_path = $iam_role_path"
-  # echo "iam_policy_path = $iam_policy_path"
-  # echo "role policy filepath = $policy_path/$service_name-role-policy.json"
-  # echo "trust policy filepath = $policy_path/$service_name-trust-policy.json"
-  # echo "sa arn = system:serviceaccount:$namespace:$cluster_name-$service_name-sa"
+  echo "INFO:"
+  echo "service_name = $service_name"
+  echo "policy_path = $policy_path"
+  echo "aws_account_id = $aws_account_id"
+  echo "cluster_name = $cluster_name"
+  echo "namespace = $namespace"
+  echo "aws_assume_role = $aws_assume_role"
+  echo "cluster_oidc_issuer_url = $cluster_oidc_issuer_url"
+  echo "iam_role_path = $iam_role_path"
+  echo "iam_policy_path = $iam_policy_path"
+  echo "role policy filepath = $policy_path/$service_name-role-policy.json"
+  echo "trust policy filepath = $policy_path/$service_name-trust-policy.json"
+  echo "sa arn = system:serviceaccount:$namespace:$cluster_name-$service_name-sa"
 
   
-  # validate role policy file
-  # if [[ ! -f "$policy_path/$service_name-role-policy.json" ]]; then
-  #   echo "$policy_path/$service_name-role-policy.json not found"
-  #   exit 1
-  # fi
+  validate role policy file
+  if [[ ! -f "$policy_path/$service_name-role-policy.json" ]]; then
+    echo "$policy_path/$service_name-role-policy.json not found"
+    exit 1
+  fi
 
   # generate cert-manager role trust policy
-  cat <<EOF > "policies/cert-manager-trust-policy.json" 
+  cat <<EOF > "$policy_path/$service_name-trust-policy.json" 
 {
   "Version": "2012-10-17",
   "Statement": [
