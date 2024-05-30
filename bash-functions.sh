@@ -89,7 +89,7 @@ EOF
   awsAssumeRole "$aws_account_id" "$aws_assume_role"
 
   # create the service account role policy
-  aws iam create-policy --path $iam_policy_path --policy-name "$cluster_name-$service_name-role-policy" --policy-document "file://$policy_path/$service_name-role-policy.json"
+  aws iam create-policy --path "/$iam_policy_path/" --policy-name "$cluster_name-$service_name-role-policy" --policy-document "file://$policy_path/$service_name-role-policy.json"
 
 }
 
