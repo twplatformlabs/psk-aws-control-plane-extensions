@@ -58,10 +58,10 @@ createOIDCAssumableRole () {
   echo "sa arn = system:serviceaccount:$namespace:$cluster_name-$service_name-sa"
 
   # validate role policy file
-  if [[ ! -f "$policy_path/$service_name-role-policy.json" ]]; then
-    echo "$policy_path/$service_name-role-policy.json not found"
-    exit 1
-  fi
+  # if [[ ! -f "$policy_path/$service_name-role-policy.json" ]]; then
+  #   echo "$policy_path/$service_name-role-policy.json not found"
+  #   exit 1
+  # fi
 
   # generate cert-manager role trust policy
   cat <<EOF > "$policy_path/$service_name-trust-policy.json" 
