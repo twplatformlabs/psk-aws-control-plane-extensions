@@ -64,7 +64,7 @@ createOIDCAssumableRole () {
   # fi
 
   # generate cert-manager role trust policy
-  cat <<EOF > "$policy_path/$service_name-trust-policy.json" 
+  cat <<EOF > "policies/cert-manager-trust-policy.json" 
 {
   "Version": "2012-10-17",
   "Statement": [
