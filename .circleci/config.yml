@@ -40,7 +40,7 @@ commands:
           tpl-file: << parameters.cluster >>.json
       - kube/op-config:
           op-value: empc-lab/psk-aws-<< parameters.cluster>>/kubeconfig-base64
-      - do/bash-functions
+      #- do/bash-functions
 
   run-integration-tests:
     steps:
