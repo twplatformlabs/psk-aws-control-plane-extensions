@@ -57,6 +57,7 @@ createOIDCAssumableRole () {
   echo "trust policy filepath = $policy_path/$service_name-trust-policy.json"
   echo "sa arn = system:serviceaccount:$namespace:$cluster_name-$service_name-sa"
 
+  awsAssumeRole "$aws_account_id" "$aws_assume_role"
   # validate role policy file
   # if [[ ! -f "$policy_path/$service_name-role-policy.json" ]]; then
   #   echo "$policy_path/$service_name-role-policy.json not found"
@@ -85,7 +86,7 @@ createOIDCAssumableRole () {
 }
 EOF
 
-  awsAssumeRole "$aws_account_id" "$aws_assume_role"
+  
 }
 
   # ASSUMEROLE
