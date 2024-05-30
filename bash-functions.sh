@@ -18,9 +18,9 @@ createOIDCAssumableRole () {
   policy_path="${2:-policies}"
   aws_account_id="$3"
   cluster_name="$4"
-  namespace="$5"
-  aws_assume_role="$6"
-  cluster_oidc_issuer_url="$7"
+  aws_assume_role="$5"
+  cluster_oidc_issuer_url="$6"
+  namespace="$7"
   iam_role_path="${8:-PSKRoles}"
   iam_policy_path="${9:-PSKPolicies}"
 
