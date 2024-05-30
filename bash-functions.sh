@@ -57,7 +57,7 @@ createOIDCAssumableRole () {
   echo "sa arn = system:serviceaccount:$namespace:$cluster_name-$service_name-sa"
 
   
-  validate role policy file
+  # validate role policy file
   if [[ ! -f "$policy_path/$service_name-role-policy.json" ]]; then
     echo "$policy_path/$service_name-role-policy.json not found"
     exit 1
