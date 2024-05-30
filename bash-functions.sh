@@ -15,7 +15,7 @@
 
 createOIDCAssumableRole () {
   service_name="$1"
-  policy_path="$(2:-policies)"
+  policy_path="${2:-policies}"
   aws_account_id="$3"
   cluster_name="$4"
   namespace="$5"
