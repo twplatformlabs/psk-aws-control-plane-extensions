@@ -1,2 +1,4 @@
 source.env
 kubeconfig
+sbx-i01-aws-us-east-1.auto.tfvars.json
+.terraform*

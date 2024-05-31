@@ -40,13 +40,26 @@ commands:
           tpl-file: << parameters.cluster >>.json
       - kube/op-config:
           op-value: empc-lab/psk-aws-<< parameters.cluster>>/kubeconfig-base64
-      #- do/bash-functions
+      - terraform/terraformrc
+      - do/bash-functions
 
-  run-integration-tests:
+  validate-service-account-roles:
+    parameters:
+      cluster:
+        description: cluster and tf workspace name
+        type: string
     steps:
       - run:
-          name: run control plane services integration tests
-          command: bash scripts/services_integration_test.sh
+          name: run service account integration tests
+          environment:
+            WORKSPACE: << parameters.cluster >>
+          command: bash scripts/service_account_integration_tests.sh << parameters.cluster >>
+
+  # run-integration-tests:
+  #   steps:
+  #     - run:
+  #         name: run control plane services integration tests
+  #         command: bash scripts/services_integration_test.sh
 
 jobs:
 
@@ -81,10 +94,36 @@ workflows:
       not:
         equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
-      - deploy control plane extensions:
-          context: empc-lab
-          cluster: sbx-i01-aws-us-east-1
+      - terraform/static-code-analysis:
+          name: static code analysis
+          context: *context
+          trivy-scan: true
+          before-static-analysis:
+            - set-environment:
+                cluster: sbx-i01-aws-us-east-1
           filters: *on-push-main
+
+      # - terraform/apply:
+      #     name: apply sbx-i01-aws-us-east-1 service account roles
+      #     context: *context
+      #     executor-image: *executor-image
+      #     workspace: sbx-i01-aws-us-east-1
+      #     before-apply:
+      #       - set-environment:
+      #           cluster: sbx-i01-aws-us-east-1
+      #     after-apply:
+      #       - validate-service-account-roles:
+      #           cluster: sbx-i01-aws-us-east-1
+      #     requires:
+      #       - static code analysis
+      #     filters: *on-push-main
+          
+      # - deploy control plane extensions:
+      #     context: empc-lab
+      #     cluster: sbx-i01-aws-us-east-1
+      #     requires:
+      #       - apply sbx-i01-aws-us-east-1 service account roles
+      #     filters: *on-push-main
 
   # release prod-i01-aws-us-east-2 control plane base:
   #   jobs:
@@ -143,28 +182,4 @@ workflows:
   #         name: generate-platform-nightly-pipeline
   #         release-pipeline-name: release
   #         custom-template-file: nightly.yml
-  #         filters: *on-push-main
-
-
-
-  # ====================================================== tear down
-  # tear down psk control plane base:
-  #   when:
-  #     not:
-  #       equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
-  #   jobs:
-  #     - approve tear down:
-  #         type: approval
-  #         filters: *on-push-main
-
-  #     - terraform/destroy:
-  #         name: destroy sbx-i01-aws-us-east-1
-  #         context: *context
-  #         executor-image: *executor-image
-  #         workspace: sbx-i01-aws-us-east-1
-  #         before-destroy:
-  #           - set-environment:
-  #               cluster: sbx-i01-aws-us-east-1
-  #         requires:
-  #           - approve tear down
   #         filters: *on-push-main
