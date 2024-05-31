@@ -59,7 +59,7 @@ commands:
   #   steps:
   #     - run:
   #         name: run control plane services integration tests
-  #         command: bash scripts/services_integration_test.sh
+  #         command: bats test/services_integration_tests.bats
 
 jobs:
 
@@ -117,12 +117,12 @@ workflows:
             - static code analysis
           filters: *on-push-main
           
-      # - deploy control plane extensions:
-      #     context: empc-lab
-      #     cluster: sbx-i01-aws-us-east-1
-      #     requires:
-      #       - apply sbx-i01-aws-us-east-1 service account roles
-      #     filters: *on-push-main
+      - deploy control plane extensions:
+          context: *context
+          cluster: sbx-i01-aws-us-east-1
+          requires:
+            - apply sbx-i01-aws-us-east-1 service account roles
+          filters: *on-push-main
 
   release prod-i01-aws-us-east-2 control plane extensions:
     jobs:

@@ -5,7 +5,6 @@ cluster_name=$1
 CHART_VERSION=$(jq -er .cert_manager_chart_version $cluster_name.json)
 AWS_ACCOUNT_ID=$(jq -er .aws_account_id $cluster_name.json)
 AWS_ASSUME_ROLE=$(jq -er .aws_assume_role $cluster_name.json)
-CLUSTER_OIDC_ISSUER_URL=$(jq -er .cluster_oidc_issuer_url $cluster_name.json)
 
 echo "cert-manager chart version $CHART_VERSION"
 helm repo add jetstack https://charts.jetstack.io --force-update
