@@ -103,20 +103,20 @@ workflows:
                 cluster: sbx-i01-aws-us-east-1
           filters: *on-push-main
 
-      # - terraform/apply:
-      #     name: apply sbx-i01-aws-us-east-1 service account roles
-      #     context: *context
-      #     executor-image: *executor-image
-      #     workspace: sbx-i01-aws-us-east-1
-      #     before-apply:
-      #       - set-environment:
-      #           cluster: sbx-i01-aws-us-east-1
-      #     after-apply:
-      #       - validate-service-account-roles:
-      #           cluster: sbx-i01-aws-us-east-1
-      #     requires:
-      #       - static code analysis
-      #     filters: *on-push-main
+      - terraform/apply:
+          name: apply sbx-i01-aws-us-east-1 service account roles
+          context: *context
+          executor-image: *executor-image
+          workspace: sbx-i01-aws-us-east-1
+          before-apply:
+            - set-environment:
+                cluster: sbx-i01-aws-us-east-1
+          after-apply:
+            - validate-service-account-roles:
+                cluster: sbx-i01-aws-us-east-1
+          requires:
+            - static code analysis
+          filters: *on-push-main
           
       # - deploy control plane extensions:
       #     context: empc-lab
