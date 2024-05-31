@@ -55,11 +55,11 @@ commands:
             WORKSPACE: << parameters.cluster >>
           command: bash scripts/service_account_integration_tests.sh << parameters.cluster >>
 
-  # run-integration-tests:
-  #   steps:
-  #     - run:
-  #         name: run control plane services integration tests
-  #         command: bats test/services_integration_tests.bats
+  run-integration-tests:
+    steps:
+      - run:
+          name: run control plane services integration tests
+          command: bats test/services_integration_tests.bats
 
 jobs:
 
@@ -83,7 +83,12 @@ jobs:
       # - run:
       #     name: install istio
       #     command: bash scripts/install_istio.sh << parameters.cluster >>
-      #- run-integration-tests
+      - run-integration-tests
+      - run:
+          name: deploy cluster certificate issuer
+          command: |
+            bash scripts/define_cert_issuer.sh << parameters.cluster >>
+            # bash scripts/deploy_cert_issuer.sh << parameters.cluster >>
 
 # ============================================================ workflows
 

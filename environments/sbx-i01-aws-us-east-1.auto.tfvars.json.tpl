@@ -5,5 +5,12 @@
   "cluster_name": "sbx-i01-aws-us-east-1",
   "cert_manager_chart_version": "1.14.5",
   "external_dns_chart_version": "0",
-  "istio_chart_version": "0"
+  "istio_chart_version": "0",
+  "cluster_domains": [
+    "twdps.digital",
+    "preview.twdps.digital",
+    "preview.twdps.io"
+  ],
+  "issuerEndpoint": "https://acme-v02.api.letsencrypt.org/directory",
+  "issuerEmail": "twdps.io@gmail.com"
 }
