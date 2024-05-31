@@ -106,7 +106,6 @@ workflows:
       - terraform/apply:
           name: apply sbx-i01-aws-us-east-1 service account roles
           context: *context
-          executor-image: *executor-image
           workspace: sbx-i01-aws-us-east-1
           before-apply:
             - set-environment:
@@ -125,8 +124,26 @@ workflows:
       #       - apply sbx-i01-aws-us-east-1 service account roles
       #     filters: *on-push-main
 
-  # release prod-i01-aws-us-east-2 control plane base:
-  #   jobs:
+  release prod-i01-aws-us-east-2 control plane extensions:
+    jobs:
+      - terraform/apply:
+          name: apply prod-i01-aws-us-east-2 service account roles
+          context: *context
+          executor-image: *executor-image
+          workspace: prod-i01-aws-us-east-2
+          before-apply:
+            - set-environment:
+                cluster: prod-i01-aws-us-east-2
+          after-apply:
+            - validate-service-account-roles:
+                cluster: prod-i01-aws-us-east-2
+          filters: *on-tag-main
+
+
+
+
+
+
 
   #     - do/schedule-pipeline:
   #         name: Deploy sandbox nightly schedule
