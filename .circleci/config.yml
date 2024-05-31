@@ -94,7 +94,7 @@ workflows:
       not:
         equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
-      - terraform/static-code-analysis:
+      - terraform/static-analysis:
           name: static code analysis
           context: *context
           trivy-scan: true
