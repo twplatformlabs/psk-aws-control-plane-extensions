@@ -1,0 +1,4 @@
+# Ignore selected warnings from scanning the official AWS terraform modules
+#
+# control plane instances will manage dynamic subdomains
+AVD-AWS-0057
