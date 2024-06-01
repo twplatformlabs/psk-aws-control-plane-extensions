@@ -87,8 +87,8 @@ jobs:
       - run:
           name: deploy cluster certificate issuer
           command: |
-            bash scripts/define_cert_issuer.sh << parameters.cluster >>
-            # bash scripts/deploy_cert_issuer.sh << parameters.cluster >>
+            bash scripts/define_certificate_issuer.sh << parameters.cluster >>
+            bash scripts/deploy_certificate_issuer.sh << parameters.cluster >>
 
 # ============================================================ workflows
 
