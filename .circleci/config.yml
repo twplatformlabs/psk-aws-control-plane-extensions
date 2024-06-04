@@ -75,14 +75,14 @@ jobs:
       - set-environment:
           cluster: << parameters.cluster >>
       - run:
+          name: install istio
+          command: bash scripts/install_istio.sh << parameters.cluster >>
+      - run:
           name: install cert-manager
           command: bash scripts/install_cert_manager.sh << parameters.cluster >>
-      # - run:
-      #     name: install external-dns
-      #     command: bash scripts/install_external_dns.sh << parameters.cluster >>
-      # - run:
-      #     name: install istio
-      #     command: bash scripts/install_istio.sh << parameters.cluster >>
+      - run:
+          name: install external-dns
+          command: bash scripts/install_external_dns.sh << parameters.cluster >>
       - run-integration-tests
       - run:
           name: deploy cluster certificate issuer

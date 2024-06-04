@@ -5,3 +5,5 @@ sbx-i01-aws-us-east-1.auto.tfvars.json
 sbx-i01-aws-us-east-1-cluster-issuer.yaml
 credentials
 bash-functions.sh
+istio-*
+cluster-domains-values.yaml
