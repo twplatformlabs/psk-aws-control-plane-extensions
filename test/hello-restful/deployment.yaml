@@ -73,18 +73,18 @@ spec:
             initialDelaySeconds: 3
             failureThreshold: 4
             periodSeconds: 15
-      topologySpreadConstraints:
-        - labelSelector:
-            matchLabels:
-              app.kubernetes.io/name: hello-restful
-          maxSkew: 3
-          topologyKey: topology.kubernetes.io/zone
-          whenUnsatisfiable: ScheduleAnyway
-        - labelSelector:
-            matchLabels:
-              app.kubernetes.io/name: hello-restful
-          maxSkew: 3
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: ScheduleAnyway
-      imagePullSecrets:
-        - name: regcreds
+      # topologySpreadConstraints:
+      #   - labelSelector:
+      #       matchLabels:
+      #         app.kubernetes.io/name: hello-restful
+      #     maxSkew: 3
+      #     topologyKey: topology.kubernetes.io/zone
+      #     whenUnsatisfiable: ScheduleAnyway
+      #   - labelSelector:
+      #       matchLabels:
+      #         app.kubernetes.io/name: hello-restful
+      #     maxSkew: 3
+      #     topologyKey: kubernetes.io/hostname
+      #     whenUnsatisfiable: ScheduleAnyway
+      # imagePullSecrets:
+      #   - name: regcreds

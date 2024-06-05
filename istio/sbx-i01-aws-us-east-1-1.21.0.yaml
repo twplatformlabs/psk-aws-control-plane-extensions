@@ -5,7 +5,22 @@ spec:
     base:
       enabled: true
     cni:
-      enabled: false
+      enabled: true
+      k8s:
+        resources:
+          requests:
+            cpu: 10m
+            memory: 128Mi
+          limits:
+            cpu: 2000m
+            memory: 2024Mi
+        nodeSelector:
+          nodegroup: management-arm-rkt-mng
+        tolerations:
+          - key: "dedicated"
+            operator: "Equal"
+            value: "management"
+            effect: "NoSchedule"
     egressGateways:
     - enabled: false
       name: istio-egressgateway
