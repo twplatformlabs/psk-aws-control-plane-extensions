@@ -16,3 +16,16 @@ metadata:
     pod-security.kubernetes.io/warn: baseline
     pod-security.kubernetes.io/audit: baseline
     pod-security.kubernetes.io/enforce: baseline
+
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: default-mtls-ns-quota
+  namespace: default-mtls
+spec:
+  hard:
+    requests.cpu: "10"
+    requests.memory: 10Gi
+    limits.cpu: "2"
+    limits.memory: 2Gi

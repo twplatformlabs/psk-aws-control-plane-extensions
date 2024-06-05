@@ -31,14 +31,18 @@ spec:
         kubernetes.io/arch: amd64
       serviceAccountName: hello-restful
       securityContext:
-        {}
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: hello-restful
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
             runAsNonRoot: true
-            runAsUser: 1000
+            runAsUser: 65532
+            runAsGroup: 65532
+            capabilities:
+              drop: ["ALL"]
           image: "ghcr.io/thoughtworks-dps/hello-restful:0.3.0"
           imagePullPolicy: Always
           ports:
