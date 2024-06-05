@@ -1,0 +1,27 @@
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hello-restful
+  namespace: default-mtls
+  labels:
+    app: hello-restful
+    version: 0.3.0
+    env: default-mtls
+    helm.sh/chart: hello-restful-0.1.0
+    app.kubernetes.io/name: hello-restful
+    app.kubernetes.io/instance: hello-restful
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: hello-restful
+  minReplicas: 2
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80

@@ -60,6 +60,9 @@ commands:
       - run:
           name: run control plane services integration tests
           command: bats test/services_integration_tests.bats
+      # - run:
+      #     name: run gateway functional test
+      #     command: bash scripts/gateway_functional_test.sh
 
 jobs:
 
@@ -83,12 +86,15 @@ jobs:
       - run:
           name: install external-dns
           command: bash scripts/install_external_dns.sh << parameters.cluster >>
-      - run-integration-tests
       - run:
           name: deploy cluster certificate issuer
           command: |
             bash scripts/define_certificate_issuer.sh << parameters.cluster >>
             bash scripts/deploy_certificate_issuer.sh << parameters.cluster >>
+      - run:
+          name: deploy cluster defautl gateways
+          command: bash scripts/deploy_gateways.sh << parameters.cluster >>
+      - run-integration-tests
 
 # ============================================================ workflows
 

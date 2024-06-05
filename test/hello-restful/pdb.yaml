@@ -1,0 +1,23 @@
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: hello-restful
+  namespace: default-mtls
+  labels:
+    app: hello-restful
+    version: 0.3.0
+    env: default-mtls
+    helm.sh/chart: hello-restful-0.1.0
+    app.kubernetes.io/name: hello-restful
+    app.kubernetes.io/instance: hello-restful
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: hello-restful
+      version: 0.3.0
+      env: default-mtls
+      helm.sh/chart: hello-restful-0.1.0
+      app.kubernetes.io/name: hello-restful
+      app.kubernetes.io/instance: hello-restful

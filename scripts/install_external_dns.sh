@@ -4,6 +4,7 @@ set -eo pipefail
 cluster_name=$1
 chart_version=$(jq -er .external_dns_chart_version $cluster_name.auto.tfvars.json)
 cluster_domains=$(jq -er .cluster_domains $cluster_name.auto.tfvars.json)
+AWS_ACCOUNT_ID=$(jq -er .aws_account_id $cluster_name.auto.tfvars.json)
 
 echo "external-dns chart version $chart_version"
 
@@ -24,7 +25,7 @@ helm repo update
 helm upgrade --install external-dns external-dns/external-dns \
              --version v$chart_version \
              --namespace istio-system \
-             --set serviceAccount.annotations."eks\.amazonaws\.com/role-arn"=arn:aws:iam::${AWS_ACCOUNT_ID}:role/PSKRoles/${CLUSTER}-external-dns-sa \
+             --set serviceAccount.annotations."eks\.amazonaws\.com/role-arn"=arn:aws:iam::${AWS_ACCOUNT_ID}:role/PSKRoles/${cluster_name}-external-dns-sa \
              --set txtOwnerId=$cluster_name-twdps-labs \
              --values cluster-domains-values.yaml \
              --values external-dns/$cluster_name-values.yaml

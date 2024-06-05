@@ -1,0 +1,28 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: hello-restful
+  namespace: default-mtls
+  labels:
+    app: hello-restful
+    version: 0.3.0
+    env: default-mtls
+    helm.sh/chart: hello-restful-0.1.0
+    app.kubernetes.io/name: hello-restful
+    app.kubernetes.io/instance: hello-restful
+spec:
+  hosts:
+    - sbx-i01-aws-us-east-1.twdps.io
+  gateways:
+    - istio-system/sbx-i01-aws-us-east-1-twdps-io-gateway
+  http:
+    - name: hello-restful-route
+      match:
+        - uri:
+            prefix: /v1/hello
+      route:
+      - destination:
+          host: hello-restful.default-mtls.svc.cluster.local
+          port:
+            number: 80

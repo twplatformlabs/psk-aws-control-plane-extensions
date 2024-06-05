@@ -8,3 +8,5 @@ bash-functions.sh
 istio-1*
 istio-2*
 cluster-domains-values.yaml
+tpl/*-certificate.yaml
+tpl/*-gateway.yaml
