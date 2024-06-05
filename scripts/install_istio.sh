@@ -6,7 +6,7 @@ istio_version=$(jq -er .istio_version $cluster_name.auto.tfvars.json)
 echo "istio version $istio_version"
 
 # istio namespaces
-kubectl apply -f tpl/istio-namespaces.yaml
+kubectl apply -f ../tpl/istio-namespaces.yaml
 
 # fetch specified istio version
 curl -L https://istio.io/downloadIstio | ISTIO_VERSION=$istio_version sh -
