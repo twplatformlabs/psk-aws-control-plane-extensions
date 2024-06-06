@@ -1,22 +1,4 @@
 ---
-apiVersion: networking.istio.io/v1beta1
-kind: VirtualService
-metadata:
-  name: httpbin
-  namespace: default-mtls
-spec:
-  hosts:
-  - "httpbin.sbx-i01-aws-us-east-1.twdps.io"
-  gateways:
-  - istio-system/sbx-i01-aws-us-east-1-twdps-io-gateway
-  http:
-    - route:
-      - destination:
-          host: httpbin.default-mtls.svc.cluster.local
-          port:
-            number: 8000
-
----
 apiVersion: v1
 kind: Service
 metadata:
@@ -27,8 +9,8 @@ metadata:
 spec:
   ports:
   - name: http
-    port: 8000
-    targetPort: 80
+    port: 80
+    targetPort: 8080
   selector:
     app: httpbin
 
@@ -46,7 +28,7 @@ metadata:
   name: httpbin
   namespace: default-mtls
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: httpbin
@@ -61,14 +43,21 @@ spec:
         seccompProfile:
           type: RuntimeDefault
       containers:
-        - image: docker.io/kennethreitz/httpbin:v0.6.1
-          imagePullPolicy: IfNotPresent
+        - image: docker.io/kennethreitz/httpbin
+          imagePullPolicy: Always
           name: httpbin
+          command:
+            - gunicorn
+            - -b
+            - 0.0.0.0:8080
+            - httpbin:app
+            - -k
+            - gevent
           ports:
-            - containerPort: 80
+            - containerPort: 8080
           securityContext:
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
+            readOnlyRootFilesystem: false
             runAsNonRoot: true
             runAsUser: 65532
             runAsGroup: 65532

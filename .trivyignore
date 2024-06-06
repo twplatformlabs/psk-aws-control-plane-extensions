@@ -2,3 +2,7 @@
 #
 # control plane instances will manage dynamic subdomains
 AVD-AWS-0057
+# ephemeral test application, httpbin, request write on filesystem
+AVD-KSV-0014
+# ephemeral test application, httpbin, only has latest
+AVD-KSV-0013

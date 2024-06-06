@@ -10,3 +10,4 @@ istio-2*
 cluster-domains-values.yaml
 tpl/*-certificate.yaml
 tpl/*-gateway.yaml
+test/httpbin/virtual-service.yaml

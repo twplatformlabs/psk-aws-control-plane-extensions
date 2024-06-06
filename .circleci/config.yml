@@ -60,9 +60,9 @@ commands:
       - run:
           name: run control plane services integration tests
           command: bats test/services_integration_tests.bats
-      # - run:
-      #     name: run gateway functional test
-      #     command: bash scripts/gateway_functional_test.sh
+      - run:
+          name: run gateway functional test
+          command: bash scripts/gateway_functional_test.sh
 
 jobs:
 
