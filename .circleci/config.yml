@@ -62,7 +62,7 @@ commands:
           command: bats test/services_integration_tests.bats
       - run:
           name: run gateway functional test
-          command: bash scripts/gateway_functional_test.sh
+          command: bash scripts/gateway_functional_test.sh << parameters.cluster >>
 
 jobs:
 
