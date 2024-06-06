@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-# kill the impact monitor on exit
-trap 'kill $(jobs -p) 2>/dev/null' EXIT
-
 cluster_name=$1
 istio_version=$(jq -er .istio_version $cluster_name.auto.tfvars.json)
 echo "istio version $istio_version"
