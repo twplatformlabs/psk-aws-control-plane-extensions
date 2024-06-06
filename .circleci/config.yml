@@ -22,8 +22,6 @@ on-tag-main: &on-tag-main
   tags:
     only: /.*/
 
-# ============================================================ commands and jobs
-
 commands:
 
   set-environment:
@@ -60,9 +58,6 @@ commands:
       - run:
           name: run control plane services integration tests
           command: bats test/services_integration_tests.bats
-      - run:
-          name: run gateway functional test
-          command: bash scripts/gateway_functional_test.sh << parameters.cluster >>
 
 jobs:
 
@@ -95,8 +90,9 @@ jobs:
           name: deploy cluster defautl gateways
           command: bash scripts/deploy_gateways.sh << parameters.cluster >>
       - run-integration-tests
-
-# ============================================================ workflows
+      - run:
+          name: run gateway functional test
+          command: bash scripts/gateway_functional_test.sh << parameters.cluster >>
 
 workflows:
 
