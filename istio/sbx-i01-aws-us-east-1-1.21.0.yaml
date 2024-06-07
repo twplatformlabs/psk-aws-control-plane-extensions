@@ -27,6 +27,8 @@ spec:
             operator: "Equal"
             value: "management"
             effect: "NoSchedule"
+        podDisruptionBudget:
+          maxUnavailable: 1
     istiodRemote:
       enabled: false
     pilot:
@@ -46,6 +48,8 @@ spec:
             operator: "Equal"
             value: "management"
             effect: "NoSchedule"
+        podDisruptionBudget:
+          maxUnavailable: 1
   hub: docker.io/istio
   meshConfig:
     defaultConfig:

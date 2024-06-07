@@ -7,19 +7,6 @@
 	</p>
 </div>
 
-**min for lab replacement**  
-
-- istio
-- cert-manager
-- external-dns
-
-# TODO
-
-- switch to zero-downtime version deploy for istio
-- crossplane
-- k6
-
-
 ### Current Extensions
 
 - istio
@@ -80,20 +67,19 @@ Create a new revision config in the istio-configuration folder. Update the versi
 **validate basic mesh functionality**  
 
 Deploys an instance of httpbin to the default-mtls namespace and defines a virtual service on the default cluster gateway at httpbin.__cluster__ twdps.io domain. A successful test confirms the healthy functionality of the following:  
-- the ingressgateway service successfully provisioned an ELB that includes EKS managed node instances.
+- the ingressgateway service successfully provisioned an ELB
 - gateways were defined for the domains managed by the cluster
-- certificates were successfully requested from LetsEncrypt and are attached to the gateways.
+- certificates were successfully requested from Let'sEncrypt and are attached to the gateways
 - envoy sidecars are successfully injected into managed namespaces
 - istiod and the istio mutatingwebhook are successfully proxying traffic via envoy
-- tls traffic successfully reaches the httpbin instance on https://httpbin.twdps.io
+- tls traffic successfully reaches the httpbin test application
 
-```
-validate_ingress.sh
-validate_twdps_io.bats
-```
-The httpbin testing service is deleted after a successful test.
+#### TODO:
 
-### TODO:
+Add services:  
+- crossplane
+- k6
 
+other:  
 - The external-dns deployment only supports a pre-defined list of env gateways. When the teams-api assumes the role of gateway management then the configuration deployed in this pipeline can reduce to only the cluster-name specific subdomain.
 - convert istio install/upgrade to revision-based canary method.
