@@ -156,7 +156,6 @@ workflows:
       - terraform/apply:
           name: apply prod-i01-aws-us-east-2 service account roles
           context: *context
-          executor-image: *executor-image
           workspace: prod-i01-aws-us-east-2
           before-apply:
             - set-environment:
