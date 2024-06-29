@@ -4,6 +4,11 @@ set -eo pipefail
 export toggle=$1
 export cluster_name=$2
 
+node_count () {
+  nodes=$(kubectl get nodes -l kubernetes.io/arch=amd64 | tail -n +2 | wc -l | xargs)
+  echo "current node count $nodes"
+}
+
 echo "toggle $toggle httpbin test instance on $cluster_name"
 
 cat <<EOF > test/httpbin/virtual-service.yaml
@@ -28,17 +33,12 @@ EOF
 
 if [[ $toggle == "on" ]]; then
   echo "deploy httpbin to default-mtls"
+  node_count
 
   kubectl apply -f test/httpbin --recursive
   sleep 180
 
-  # this doesn't work, not sure why
-  # if only the management node is running then pause for a karpenter-node to spin up
-  nodeCount=$(kubectl get nodes -l kubernetes.io/arch=amd64 | tail -n +2 | wc -l | xargs)
-  # if [[ $nodeCount == "1" ]]; then
-  #   echo "cluster scaled to zero nodes, wiating for instance to come up"
-  #   sleep 180
-  # fi
+  node_count
 fi
 
 if [[ $toggle == "off" ]]; then

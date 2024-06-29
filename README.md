@@ -13,18 +13,20 @@
 - cert-manager
 - external-dns
 
+
+#### istio
+
 - Deploys Istio using `istioctl install` with parameters file
-- - Uses canary upgrade deployment method. If istio has not yet been deployed to the cluster, it will do a default/prod revision install of the same version.
-- - distroless images
 - - json logging by default
-- - tracing enabled
 - - ingressgateway enabled
-- Deploys external-dns for route53 automation
-- Deploys cert-manager with letsencrypt integration for automated ingress certificates
+- external-dns watches for route53 automation, watching:
+- - service
+- - ingress
+- - istio-gateway
+- - istio-virtualservice
+- Deploys cert-manager with letsencrypt integration for automated ingressgateway certificates
 
 ### gateways
-
-Cert-manager is configured to use Let'sEncrypt for tls.  
 
 Default environment gateways:  
 

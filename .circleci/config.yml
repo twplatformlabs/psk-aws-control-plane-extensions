@@ -54,10 +54,17 @@ commands:
           command: bash scripts/service_account_integration_tests.sh << parameters.cluster >>
 
   run-integration-tests:
+    parameters:
+      cluster:
+        description: cluster and tf workspace name
+        type: string
     steps:
       - run:
           name: run control plane services integration tests
           command: bats test/services_integration_tests.bats
+      - run:
+          name: run gateway functional test
+          command: bash scripts/gateway_functional_test.sh << parameters.cluster >>
 
 jobs:
 
@@ -89,10 +96,22 @@ jobs:
       - run:
           name: deploy cluster defautl gateways
           command: bash scripts/deploy_gateways.sh << parameters.cluster >>
-      - run-integration-tests
-      - run:
-          name: run gateway functional test
-          command: bash scripts/gateway_functional_test.sh << parameters.cluster >>
+      - run-integration-tests:
+           cluster: << parameters.cluster >>
+
+  integration tests:
+    docker:
+      - image: *executor-image
+    parameters:
+      cluster:
+        description: cluster name
+        type: string
+    steps:
+      - checkout
+      - set-environment:
+          cluster: << parameters.cluster >>
+      - run-integration-tests:
+           cluster: << parameters.cluster >>
 
 workflows:
 
@@ -125,6 +144,7 @@ workflows:
           filters: *on-push-main
           
       - deploy control plane extensions:
+          name: deploy sbx-i01-aws-us-east-1 extensions
           context: *context
           cluster: sbx-i01-aws-us-east-1
           requires:
@@ -146,64 +166,36 @@ workflows:
                 cluster: prod-i01-aws-us-east-2
           filters: *on-tag-main
 
+      - deploy control plane extensions:
+          name: deploy prod-i01-aws-us-east-2 extensions
+          context: *context
+          cluster: prod-i01-aws-us-east-2
+          requires:
+            - apply prod-i01-aws-us-east-2 service account roles
+          filters: *on-tag-main
 
+      - do/schedule-pipeline:
+          name: schedule nightly integration tests
+          context: *context
+          scheduled-pipeline-name: nightly control plane extensions integration tests
+          scheduled-pipeline-description: |
+            Automatically triggers nightly run of control plane extensions integration tests
+          hours-of-day: "[1]"
+          days-of-week: "[\"SUN\"]"
+          before-schedule:
+            - op/env:
+                env-file: op.prod-i01-aws-us-east-2.env
+          filters: *on-tag-main
 
-
-
-
-
-  #     - do/schedule-pipeline:
-  #         name: Deploy sandbox nightly schedule
-  #         context: *context
-  #         executor-image-name: *executor-image
-  #         shell: op run --env-file op.nonprod.env -- /bin/bash -eo pipefail
-  #         scheduled-pipeline-name: Nightly VPC validation - sandbox
-  #         scheduled-pipeline-description: |
-  #           Automatically triggers nightly run of main pipeline for validating sandbox deployment pipeline vpcs
-  #         hours-of-day: "[1]"
-  #         days-of-week: "[\"SUN\"]"
-  #         before-release:
-  #           - set-environment:
-  #               static: true
-  #               env-credentials: nonprod
-  #         filters: *on-push-main
-
-  #     - do/schedule-pipeline:
-  #         name: Deploy release nightly schedule
-  #         context: *context
-  #         executor-image-name: *executor-image
-  #         shell: op run --env-file op.prod.env -- /bin/bash -eo pipefail
-  #         scheduled-pipeline-name: Nightly VPC validation - release
-  #         scheduled-pipeline-description: |
-  #           Automatically triggers nightly run of main pipeline for validating vpcs in release
-  #         hours-of-day: "[1]"
-  #         days-of-week: "[\"SUN\"]"
-  #         before-release:
-  #           - set-environment:
-  #               static: true
-  #               env-credentials: prod
-  #         filters: *on-push-main
-
-  # run nightly sandbox validation jobs:
-  #   when:
-  #     and:
-  #       - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
-  #       - equal: [ nightly-sandbox-validation-schedule, << pipeline.schedule.name >> ]
-  #   jobs:
-  #     - launch-dynamic-pipeline:
-  #         name: generate-sandbox-nightly-pipeline
-  #         release-pipeline-name: sandbox
-  #         custom-template-file: nightly.yml
-  #         filters: *on-push-main
-
-  # run nightly release validation jobs:
-  #   when:
-  #     and:
-  #       - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
-  #       - equal: [ nightly-release-validation-schedule, << pipeline.schedule.name >> ]
-  #   jobs:
-  #     - launch-dynamic-pipeline:
-  #         name: generate-platform-nightly-pipeline
-  #         release-pipeline-name: release
-  #         custom-template-file: nightly.yml
-  #         filters: *on-push-main
+  run nightly integration tests:
+    when:
+        equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+    jobs:
+      - integration-tests:
+          name: nightly sbx-i01-aws-us-east-1 integration tests
+          context: *context
+          cluster: sbx-i01-aws-us-east-1
+      - integration-tests:
+          name: nightly prod-i01-aws-us-east-2 integration tests
+          context: *context
+          cluster: prod-i01-aws-us-east-2

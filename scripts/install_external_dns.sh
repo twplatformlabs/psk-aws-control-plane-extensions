@@ -28,4 +28,4 @@ helm upgrade --install external-dns external-dns/external-dns \
              --set serviceAccount.annotations."eks\.amazonaws\.com/role-arn"=arn:aws:iam::${AWS_ACCOUNT_ID}:role/PSKRoles/${cluster_name}-external-dns-sa \
              --set txtOwnerId=$cluster_name-twdps-labs \
              --values cluster-domains-values.yaml \
-             --values external-dns/$cluster_name-values.yaml
+             --values external-dns/default-values.yaml
