@@ -142,7 +142,7 @@ workflows:
           requires:
             - static code analysis
           filters: *on-push-main
-          
+
       - deploy control plane extensions:
           name: deploy sbx-i01-aws-us-east-1 extensions
           context: *context
@@ -191,11 +191,11 @@ workflows:
     when:
         equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
-      - integration-tests:
+      - integration tests:
           name: nightly sbx-i01-aws-us-east-1 integration tests
           context: *context
           cluster: sbx-i01-aws-us-east-1
-      - integration-tests:
+      - integration tests:
           name: nightly prod-i01-aws-us-east-2 integration tests
           context: *context
           cluster: prod-i01-aws-us-east-2
