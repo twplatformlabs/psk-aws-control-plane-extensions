@@ -10,13 +10,7 @@
   "cluster_domains": [
     "twdps.io",
     "prod-i01-aws-us-east-2.twdps.digital",
-    "prod-i01-aws-us-east-2.twdps.io",
-    "dev.twdps.digital",
-    "dev.twdps.io",
-    "qa.twdps.digital",
-    "qa.twdps.io",
-    "prod.twdps.digital",
-    "prod.twdps.io"
+    "prod-i01-aws-us-east-2.twdps.io"
   ],
   "issuerEndpoint": "https://acme-v02.api.letsencrypt.org/directory",
   "issuerEmail": "twdps.io@gmail.com"

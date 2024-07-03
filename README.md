@@ -28,21 +28,6 @@
 
 ### gateways
 
-Default environment gateways:  
-
-| gateway                                 | urls                                |  cluster                |
-|-----------------------------------------|-------------------------------------|-------------------------|
-| preview.twdps.digital-gateway           | (*.)preview.twdps.digital           | sbx-i01-aws-us-east-1   |
-| preview.twdps.io-gateway                | (*.)preview.twdps.io                | sbx-i01-aws-us-east-1   |
-| dev.twdps.digital-gateway               | (*.)dev.twdps.digital               | prod-i01-aws-us-east-1  |
-| dev.twdps.io-gateway                    | (*.)dev.twdps.io                    | prod-i01-aws-us-east-1  |
-| qa.twdps.digital-gateway                | (*.)qa.twdps.digital                | prod-i01-aws-us-east-1  |
-| qa.twdps.io-gateway                     | (*.)qa.twdps.io                     | prod-i01-aws-us-east-1  |
-| prod.twdps.digital-gateway              | (*.)prod.twdps.digital              | prod-i01-aws-us-east-1  |
-| prod.twdps.io-gateway                   | (*.)prod.twdps.io                   | prod-i01-aws-us-east-1  |
-| twdps.io-gateway                        | (*.)twdps.io                        | prod-i01-aws-us-east-1  |
-| twdps.digital-gateway                   | (*.)twdps.digital                   | sbx-i01-aws-us-east-1   |
-
 Cluster specific gateways:
 
 | gateway                                       | urls                                     |  cluster                |
@@ -52,11 +37,9 @@ Cluster specific gateways:
 | prod-i01-aws-us-east-1.twdps.digital-gateway  | (*.)prod-i01-aws-us-east-1.twdps.digital | prod-i01-aws-us-east-1  |
 | prod-i01-aws-us-east-1.twdps.io-gateway       | (*.)prod-i01-aws-us-east-1.twdps.io      | prod-i01-aws-us-east-1  |
 
-A typical external->internal routing patterns for domains would be:
+Ingress domains should be considered a organizational _Product_ decision. In other words, Decide on the top-level subdomains that reflect the product strategy you have in mind for api product domains. For many companies this can be as simple as https://api.example.com is how all custom API are to be referenced with the various capabilities part of the left-of-domain path definition (api.example.com/v1/profiles...).  
 
-api.twdps.io      >  api-gateway  >  api.prod.preview.twdps.io
-
-Note: the pending teams.api release will shift management of standard environment gateways to the api rather than through an infra pipeline.
+Where there are a limited set or unlikley to change ingress patterns, the configuration could be included within the extensions pipeline. In many enterprise situations there will be a need for a more omplex, or even customer-managed, experience around ingress domains and therefore a dedicated platform API would beed to be created to manage this feature. But even in that situation, there will probably be a brief period where alpha-users of the platform need to be onboarded with ingress capabilities. See the psk-platform-simple-teams-and-ns pipeline for an example of a lightweight, interim method to manage the basic 'customer' configuration within a cluster while the API driven solution is being created.  
 
 **Default namespace**  
 
@@ -78,10 +61,12 @@ Deploys an instance of httpbin to the default-mtls namespace and defines a virtu
 
 #### TODO:
 
-Add services:  
+Extensions to add:  
 - crossplane
 - k6
 
+_explore_
+- external-secrets operator (or similar tool as this one in particular does not support 1password, perhaps we create the extension to support)
+
 other:  
-- The external-dns deployment only supports a pre-defined list of env gateways. When the teams-api assumes the role of gateway management then the configuration deployed in this pipeline can reduce to only the cluster-name specific subdomain.
 - convert istio install/upgrade to revision-based canary method.
