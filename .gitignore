@@ -1,5 +1,5 @@
 source.env
-kubeconfig
+kubeconfig*
 sbx-i01-aws-us-east-1.auto.tfvars.json
 .terraform*
 sbx-i01-aws-us-east-1-cluster-issuer.yaml

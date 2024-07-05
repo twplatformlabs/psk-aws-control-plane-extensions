@@ -39,9 +39,6 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/arch: amd64
-      securityContext:
-        seccompProfile:
-          type: RuntimeDefault
       containers:
         - image: docker.io/kennethreitz/httpbin
           imagePullPolicy: Always
@@ -61,6 +58,8 @@ spec:
             runAsNonRoot: true
             runAsUser: 65532
             runAsGroup: 65532
+            seccompProfile:
+              type: RuntimeDefault
             capabilities:
               drop: ["ALL"]
           resources:

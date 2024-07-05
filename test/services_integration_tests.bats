@@ -10,6 +10,11 @@
   [[ "${output}" =~ "Running" ]]
 }
 
+@test "evaluate istio-cni-node pod status" {
+  run bash -c "kubectl get pods -n istio-system -o wide | grep 'istio-cni-node'"
+  [[ "${output}" =~ "Running" ]]
+}
+
 @test "evaluate cert-manager pod status" {
   run bash -c "kubectl get pods -n cert-manager -o wide | grep 'cert-manager'"
   [[ "${output}" =~ "Running" ]]

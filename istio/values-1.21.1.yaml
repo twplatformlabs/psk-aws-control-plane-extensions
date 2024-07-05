@@ -5,7 +5,7 @@ spec:
     base:
       enabled: true
     cni:
-      enabled: false
+      enabled: true
     egressGateways:
     - enabled: false
       name: istio-egressgateway
@@ -27,6 +27,8 @@ spec:
             operator: "Equal"
             value: "management"
             effect: "NoSchedule"
+        podDisruptionBudget:
+          maxUnavailable: 1
     istiodRemote:
       enabled: false
     pilot:
@@ -46,13 +48,15 @@ spec:
             operator: "Equal"
             value: "management"
             effect: "NoSchedule"
+        podDisruptionBudget:
+          maxUnavailable: 1
   hub: docker.io/istio
   meshConfig:
     defaultConfig:
       proxyMetadata: {}
     enablePrometheusMerge: true
   profile: default
-  tag: 1.21.0
+  tag: 1.21.1
   values:
     base:
       enableCRDTemplates: false

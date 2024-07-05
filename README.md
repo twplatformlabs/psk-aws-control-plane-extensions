@@ -69,4 +69,4 @@ _explore_
 - external-secrets operator (or similar tool as this one in particular does not support 1password, perhaps we create the extension to support)
 
 other:  
-- convert istio install/upgrade to revision-based canary method.
+- convert istio install/upgrade to revision-based canary method. (this should address the simplistic data plane version refresh in the in-place upgrade, but need to confirm)

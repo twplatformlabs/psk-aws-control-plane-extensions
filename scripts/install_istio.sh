@@ -15,8 +15,10 @@ curl -L https://istio.io/downloadIstio | ISTIO_VERSION=$istio_version sh -
 already_installed=$(kubectl get po --all-namespaces)
 if [[ $already_installed == *"istiod"* ]]; then
   echo "inplace upgrade"
-  istio-${istio_version}/bin/istioctl upgrade -y -f istio/$cluster_name-$istio_version.yaml
+  istio-${istio_version}/bin/istioctl upgrade -y -f istio/values-$istio_version.yaml
+  sleep 30
+  kubectl rollout restart deployment
 else
   echo "new install"
-  istio-${istio_version}/bin/istioctl install -y -f istio/$cluster_name-$istio_version.yaml
+  istio-${istio_version}/bin/istioctl install -y -f istio/values-$istio_version.yaml
 fi
