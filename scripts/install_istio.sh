@@ -17,7 +17,7 @@ if [[ $already_installed == *"istiod"* ]]; then
   echo "inplace upgrade"
   istio-${istio_version}/bin/istioctl upgrade -y -f istio/values-$istio_version.yaml
   sleep 30
-  kubectl rollout restart deployment --all-namespaces --field-selector=metadata.namespace!=kube-system,metadata.namespace!=cert-manager,metadata.namespace!=psk-system
+  kubectl get deployments --all-namespaces --field-selector=metadata.namespace!=kube-system,metadata.namespace!=cert-manager,metadata.namespace!=istio-system  | tail +2 | awk '{ cmd=sprintf("kubectl rollout restart deployment -n %s %s", $1, $2) ; system(cmd) }'
 else
   echo "new install"
   istio-${istio_version}/bin/istioctl install -y -f istio/values-$istio_version.yaml
