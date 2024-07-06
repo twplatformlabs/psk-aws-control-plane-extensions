@@ -17,8 +17,7 @@ replicaCount: 1
 strategy:
   type: RollingUpdate
   rollingUpdate:
-    maxSurge: 0
-    maxUnavailable: 1
+    maxSurge: 1
 
 image:
   repository: quay.io/jetstack/cert-manager-controller

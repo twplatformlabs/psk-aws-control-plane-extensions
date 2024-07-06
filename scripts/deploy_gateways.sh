@@ -3,6 +3,8 @@ set -eo pipefail
 
 export cluster_name=$1
 export cluster_domains=$(jq -er .cluster_domains "$cluster_name".auto.tfvars.json)
+echo $cluster_name
+echo $cluster_domains
 
 declare -a domains=($(echo $cluster_domains | jq -r '.[]'))
 
@@ -27,6 +29,7 @@ spec:
   - "$domain"
   - "*.$domain"
 EOF
+  cat tpl/$domain-certificate.yaml
   kubectl apply -f tpl/$domain-certificate.yaml
 
   echo "define gateway for $domain"
@@ -52,7 +55,7 @@ spec:
     - "$domain"
     - "*.$domain"
     tls:
-      httpsRedirect: true 
+      httpsRedirect: true
   - port:
       number: 443
       name: https-$domain
@@ -61,9 +64,10 @@ spec:
     - "$domain"
     - "*.$domain"
     tls:
-      mode: SIMPLE 
+      mode: SIMPLE
       credentialName: "$domain-certificate"
 EOF
+  cat tpl/$domain-gateway.yaml
   kubectl apply -f tpl/$domain-gateway.yaml
 
 done
