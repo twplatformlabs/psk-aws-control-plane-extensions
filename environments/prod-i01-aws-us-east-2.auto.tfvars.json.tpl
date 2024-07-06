@@ -5,7 +5,7 @@
   "cluster_name": "prod-i01-aws-us-east-2",
   "cert_manager_chart_version": "1.14.5",
   "external_dns_chart_version": "1.14.4",
-  "istio_version": "1.21.0",
+  "istio_version": "1.21.4",
 
   "cluster_domains": [
     "twdps.io",
