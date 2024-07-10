@@ -37,7 +37,7 @@ commands:
           tpl-path: environments
           tpl-file: << parameters.cluster >>.auto.tfvars.json
       - kube/op-config:
-          op-value: empc-lab/psk-aws-<< parameters.cluster>>/kubeconfig-base64
+          op-value: empc-lab/psk-aws-<< parameters.cluster >>/kubeconfig-base64
       - terraform/terraformrc
       - do/bash-functions
 
