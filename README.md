@@ -28,6 +28,14 @@
 
 ### gateways
 
+Default top-level gateways:  
+
+| gateway                                 | urls                                |  cluster                |
+|-----------------------------------------|-------------------------------------|-------------------------|
+| twdps.digital-gateway                   | (*.)twdps.digital                   | sbx-i01-aws-us-east-1   |
+| twdps.io-gateway                        | (*.)twdps.io                        | prod-i01-aws-us-east-1  |
+
+
 Cluster specific gateways:
 
 | gateway                                       | urls                                     |  cluster                |
