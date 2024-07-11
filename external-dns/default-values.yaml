@@ -72,6 +72,7 @@ logFormat: json
 
 interval: 1m
 
+policy: sync
 sources:
   - service
   - ingress
@@ -83,7 +84,7 @@ extraArgs:
 
 registry: txt
 
-txtOwnerId: 
+txtOwnerId:
 txtPrefix:
 txtSuffix:
 excludeDomains: []
