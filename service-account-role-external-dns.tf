@@ -9,7 +9,7 @@ module "external_dns_irsa_role" {
   oidc_providers = {
     main = {
       provider_arn               = data.aws_iam_openid_connect_provider.eks.arn
-      namespace_service_accounts = ["istio-system:*external-dns"]
+      namespace_service_accounts = ["istio-system:external-dns"]
     }
   }
 }
