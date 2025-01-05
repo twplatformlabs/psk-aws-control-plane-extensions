@@ -24,7 +24,7 @@ helm repo add external-dns https://kubernetes-sigs.github.io/external-dns/
 helm repo update
 
 # perform trivy scan of chart with install configuration
-trivyScan "external-dns/external-dns" "external-dns"  "v$CHART_VERSION" "external-dns-values/default-values.yaml"
+trivyScan "external-dns/external-dns" "external-dns"  "v$chart_version" "external-dns-values/default-values.yaml"
 
 helm upgrade --install external-dns external-dns/external-dns \
              --version v$chart_version \

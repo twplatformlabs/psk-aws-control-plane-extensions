@@ -72,4 +72,3 @@ spec:
     global:
       proxy:
         tracer: zipkin
-      proxy_init:
