@@ -74,18 +74,6 @@ webhook:
       maxSurge: 0
       maxUnavailable: 1
 
-  securityContext:
-    runAsNonRoot: true
-    seccompProfile:
-      type: RuntimeDefault
-
-  containerSecurityContext:
-    allowPrivilegeEscalation: false
-    capabilities:
-      drop:
-      - ALL
-    readOnlyRootFilesystem: true
-
   resources:
     requests:
       cpu: 100m
