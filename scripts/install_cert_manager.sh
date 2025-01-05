@@ -12,7 +12,7 @@ helm repo add jetstack https://charts.jetstack.io --force-update
 helm repo update
 
 # perform trivy scan of chart with install configuration
-trivyScan "jetstack/cert-manager" "cert-manager"  "v$chart_version" "cert-manager-values/default-values.yaml"
+trivyScan "jetstack/cert-manager" "cert-manager"  "v$chart_version" "cert-manager-values/$cluster_name-values.yaml"
 
 helm upgrade --install cert-manager jetstack/cert-manager \
              --version v$chart_version \
