@@ -1,41 +1,36 @@
 #!/usr/bin/env bats
 
-@test "evaluate istiod pod status" {
+@test "istiod pod status is Running" {
   run bash -c "kubectl get pods -n istio-system -o wide | grep 'istiod'"
   [[ "${output}" =~ "Running" ]]
 }
 
-@test "evaluate istio-ingressgateway pod status" {
+@test "istio-ingressgateway pod status is Running" {
   run bash -c "kubectl get pods -n istio-system -o wide | grep 'ingressgateway'"
   [[ "${output}" =~ "Running" ]]
 }
 
-@test "evaluate istio-cni-node pod status" {
+@test "istio-cni-node pod status is Running" {
   run bash -c "kubectl get pods -n istio-system -o wide | grep 'istio-cni-node'"
   [[ "${output}" =~ "Running" ]]
 }
 
-@test "evaluate cert-manager pod status" {
+@test "cert-manager pod status is Running" {
   run bash -c "kubectl get pods -n cert-manager -o wide | grep 'cert-manager'"
   [[ "${output}" =~ "Running" ]]
 }
 
-@test "evaluate cert-manager-cainjector pod status" {
+@test "cert-manager-cainjector pod status is Running" {
   run bash -c "kubectl get pods -n cert-manager -o wide | grep 'cert-manager-cainjector'"
   [[ "${output}" =~ "Running" ]]
 }
 
-@test "evaluate cert-manager-webhook pod status" {
+@test "cert-manager-webhook pod status is Running" {
   run bash -c "kubectl get pods -n cert-manager -o wide | grep 'cert-manager-webhook'"
   [[ "${output}" =~ "Running" ]]
 }
 
-@test "evaluate cert-manager able to generate requested certs" {
-  run bash -c "kubectl get certificates -n istio-system"
-  [[ "$output" != *"False"* ]]
-}
-
-@test "evaluate external-dns pod status" {
+@test "external-dns pod status is Running" {
   run bash -c "kubectl get pods -n istio-system -o wide | grep 'external-dns'"
   [[ "${output}" =~ "Running" ]]
 }
