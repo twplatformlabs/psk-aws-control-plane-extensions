@@ -39,29 +39,29 @@ spec:
       enabled: false
 
     egressGateways:
-    - enabled: false
-      name: istio-egressgateway
+      - enabled: false
+        name: istio-egressgateway
 
     ingressGateways:
-    - enabled: true
-      name: istio-ingressgateway
-      k8s:
-        resources:
-          requests:
-            cpu: 10m
-            memory: 128Mi
-          limits:
-            cpu: 2000m
-            memory: 2024Mi
-        nodeSelector:
-          nodegroup: management-arm-rkt-mng
-        tolerations:
-          - key: "dedicated"
-            operator: "Equal"
-            value: "management"
-            effect: "NoSchedule"
-        podDisruptionBudget:
-          maxUnavailable: 1
+      - enabled: true
+        name: istio-ingressgateway
+        k8s:
+          resources:
+            requests:
+              cpu: 10m
+              memory: 128Mi
+            limits:
+              cpu: 2000m
+              memory: 2024Mi
+          nodeSelector:
+            nodegroup: management-arm-rkt-mng
+          tolerations:
+            - key: "dedicated"
+              operator: "Equal"
+              value: "management"
+              effect: "NoSchedule"
+          podDisruptionBudget:
+            maxUnavailable: 1
 
   values:
     base:

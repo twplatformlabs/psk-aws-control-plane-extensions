@@ -9,4 +9,4 @@ export AWS_DEFAULT_REGION=$(jq -er .aws_region "$cluster_name".auto.tfvars.json)
 
 awsAssumeRole "${aws_account_id}" "${aws_assume_role}"
 
-rspec test/service_account_roles.rb --format documentation
+rspec test/service_account_iam_roles.rb --format documentation
