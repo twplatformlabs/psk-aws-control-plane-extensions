@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -eo pipefail
+source bash-functions.sh
 
 cluster_name=$1
 chart_version=$(jq -er .cert_manager_chart_version $cluster_name.auto.tfvars.json)
@@ -9,6 +10,10 @@ AWS_ASSUME_ROLE=$(jq -er .aws_assume_role $cluster_name.auto.tfvars.json)
 echo "cert-manager chart version $chart_version"
 helm repo add jetstack https://charts.jetstack.io --force-update
 helm repo update
+
+# perform trivy scan of chart with install configuration
+trivyScan "jetstack/cert-manager" "cert-manager"  "v$CHART_VERSION" "cert-manager-values/default-values.yaml"
+
 helm upgrade --install cert-manager jetstack/cert-manager \
              --version v$chart_version \
              --namespace cert-manager --create-namespace \

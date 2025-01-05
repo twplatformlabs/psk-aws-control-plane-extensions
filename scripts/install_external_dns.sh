@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -eo pipefail
+source bash-functions.sh
 
 cluster_name=$1
 chart_version=$(jq -er .external_dns_chart_version $cluster_name.auto.tfvars.json)
@@ -21,6 +22,9 @@ done
 
 helm repo add external-dns https://kubernetes-sigs.github.io/external-dns/
 helm repo update
+
+# perform trivy scan of chart with install configuration
+trivyScan "external-dns/external-dns" "external-dns"  "v$CHART_VERSION" "external-dns-values/default-values.yaml"
 
 helm upgrade --install external-dns external-dns/external-dns \
              --version v$chart_version \
