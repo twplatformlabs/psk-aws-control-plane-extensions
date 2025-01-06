@@ -4,7 +4,7 @@
   "aws_region": "us-east-1",
   "cluster_name": "sbx-i01-aws-us-east-1",
   "cert_manager_chart_version": "1.15.4",
-  "external_dns_chart_version": "1.15.1",
+  "external_dns_chart_version": "1.15.0",
   "istio_version": "1.24.2",
 
   "cluster_domains": [
