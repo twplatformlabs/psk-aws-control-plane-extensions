@@ -47,25 +47,25 @@ spec:
   selector:
     app: istio-ingressgateway
   servers:
-  - port:
-      number: 80
-      name: http-$domain
-      protocol: HTTP
-    hosts:
-    - "$domain"
-    - "*.$domain"
-    tls:
-      httpsRedirect: true
-  - port:
-      number: 443
-      name: https-$domain
-      protocol: HTTPS
-    hosts:
-    - "$domain"
-    - "*.$domain"
-    tls:
-      mode: SIMPLE
-      credentialName: "$domain-certificate"
+    - port:
+        number: 80
+        name: http-$domain
+        protocol: HTTP
+      hosts:
+      - "$domain"
+      - "*.$domain"
+      tls:
+        httpsRedirect: true
+    - port:
+        number: 443
+        name: https-$domain
+        protocol: HTTPS
+      hosts:
+      - "$domain"
+      - "*.$domain"
+      tls:
+        mode: SIMPLE
+        credentialName: "$domain-certificate"
 EOF
   cat tpl/$domain-gateway.yaml
   kubectl apply -f tpl/$domain-gateway.yaml
