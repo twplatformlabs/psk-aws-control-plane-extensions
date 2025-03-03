@@ -8,7 +8,7 @@ orbs:
   do: twdps/pipeline-events@5.0.1
 
 globals:
-  - &context empc-lab
+  - &context platform
   - &executor-image twdps/circleci-kube-ops:alpine-3.2.1
 
 on-push-main: &on-push-main
@@ -38,7 +38,7 @@ commands:
           tpl-path: environments
           tpl-file: << parameters.cluster >>.auto.tfvars.json
       - kube/op-config:
-          op-value: empc-lab/psk-aws-<< parameters.cluster >>/kubeconfig-base64
+          op-value: platform/<< parameters.cluster >>/kubeconfig-base64
       - terraform/terraformrc
       - do/bash-functions
 

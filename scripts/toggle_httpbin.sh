@@ -20,9 +20,9 @@ metadata:
   namespace: default-mtls
 spec:
   hosts:
-  - "httpbin.$cluster_name.twdps.io"
+  - "httpbin.$cluster_name.twplatformlabs.org"
   gateways:
-  - istio-system/$cluster_name-twdps-io-gateway
+  - istio-system/$cluster_name-twplatformlabs-org-gateway
   http:
     - route:
       - destination:
