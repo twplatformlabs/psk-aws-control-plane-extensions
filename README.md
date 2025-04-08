@@ -13,7 +13,6 @@
 - cert-manager - 1.17.1
 - external-dns - 1.16.0
 
-
 #### istio
 
 - Deploys Istio using `istioctl install` with parameters file

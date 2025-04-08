@@ -14,5 +14,12 @@ if [[ ! $jsonResponse =~ "slideshow" ]]; then
   exit 1
 fi
 
+# ingress is configured to require TLS1.3 or higher, let's include a test for that
+output=$(curl -Iiv --tlsv1.1 "https://httpbin.$cluster_name.twplatformlabs.org" 2>&1)
+if [[ ! $output =~ "SSL connection using TLSv1.3" ]]; then
+  echo "TLSv1.3 not enforced"
+  exit 1
+fi
+
 # remove test app
 bash scripts/toggle_httpbin.sh off $cluster_name
