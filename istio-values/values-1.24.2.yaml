@@ -62,9 +62,9 @@ spec:
               effect: "NoSchedule"
           podDisruptionBudget:
             maxUnavailable: 1
-    
-  meshMTLS:
-    minProtocolVersion: TLSV1_3
+  meshConfig:
+    meshMTLS:
+      minProtocolVersion: TLSV1_3
 
   values:
     base:
