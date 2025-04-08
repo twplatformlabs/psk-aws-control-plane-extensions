@@ -18,7 +18,6 @@ fi
 # ingress is configured to require TLS1.3 or higher, let's include a test for that
 output=$(curl -Iiv --tlsv1.1 "https://httpbin.$cluster_name.twplatformlabs.org" 2>&1)
 echo "testing TLSv1.3 uplevel with 1.1 communication attempt"
-echo $output | grep "SSL connection using TLSv1.3"
 if [[ ! $output =~ "SSL connection using TLSv1.3" ]]; then
   echo "TLSv1.3 not enforced"
   exit 1
