@@ -5,7 +5,7 @@
   "cluster_name": "prod-i01-aws-us-east-2",
   "cert_manager_chart_version": "1.17.1",
   "external_dns_chart_version": "1.16.0",
-  "istio_version": "1.24.4",
+  "istio_version": "1.25.1",
 
   "cluster_domains": [
     "twplatformlabs.org",

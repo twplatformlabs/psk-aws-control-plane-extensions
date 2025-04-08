@@ -9,9 +9,9 @@
 
 ### Current Extensions
 
-- istio 1.24.4 - 1.25.1
-- cert-manager - 1.17.1
-- external-dns - 1.16.0
+- istio
+- cert-manager
+- external-dns
 
 #### istio
 
