@@ -18,3 +18,5 @@ helm upgrade --install cert-manager jetstack/cert-manager \
              --namespace cert-manager --create-namespace \
              --set serviceAccount.annotations."eks\.amazonaws\.com/role-arn"=arn:aws:iam::${AWS_ACCOUNT_ID}:role/PSKRoles/${cluster_name}-cert-manager-sa \
              --values cert-manager-values/$cluster_name-values.yaml
+
+sleep 180
