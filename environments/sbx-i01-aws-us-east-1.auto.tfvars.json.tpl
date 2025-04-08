@@ -3,9 +3,9 @@
   "aws_assume_role": "PSKRoles/PSKControlPlaneBaseRole",
   "aws_region": "us-east-1",
   "cluster_name": "sbx-i01-aws-us-east-1",
-  "cert_manager_chart_version": "1.16.3",
-  "external_dns_chart_version": "1.15.1",
-  "istio_version": "1.24.2",
+  "cert_manager_chart_version": "1.17.1",
+  "external_dns_chart_version": "1.16.0",
+  "istio_version": "1.24.4",
 
   "cluster_domains": [
     "sbx-i01-aws-us-east-1.twplatformlabs.org",
