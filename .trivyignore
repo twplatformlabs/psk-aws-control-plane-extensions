@@ -6,3 +6,12 @@ AVD-AWS-0057
 AVD-KSV-0014
 # ephemeral test application, httpbin, only has latest
 AVD-KSV-0013
+# external registry is allowed
+AVD-KSV-0032
+AVD-KSV-0033
+AVD-KSV-0034
+AVD-KSV-0035
+
+# Not applying limit/request policy levels
+AVD-KSV-0039
+AVD-KSV-0040
