@@ -11,10 +11,7 @@
     "twplatformlabs.org",
     "prod-i01-aws-us-east-2.twplatformlabs.org",
     "twplatformlabs.link",
-    "prod-i01-aws-us-east-2.twplatformlabs.link",
-    "twdps.io",
-    "prod-i01-aws-us-east-2.twdps.digital",
-    "prod-i01-aws-us-east-2.twdps.io"
+    "prod-i01-aws-us-east-2.twplatformlabs.link"
   ],
   "issuerEndpoint": "https://acme-v02.api.letsencrypt.org/directory",
   "issuerEmail": "twplatformlabs@gmail.com"

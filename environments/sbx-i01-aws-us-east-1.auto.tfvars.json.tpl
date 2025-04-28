@@ -9,10 +9,7 @@
 
   "cluster_domains": [
     "sbx-i01-aws-us-east-1.twplatformlabs.org",
-    "sbx-i01-aws-us-east-1.twplatformlabs.link",
-    "twdps.digital",
-    "sbx-i01-aws-us-east-1.twdps.digital",
-    "sbx-i01-aws-us-east-1.twdps.io"
+    "sbx-i01-aws-us-east-1.twplatformlabs.link"
   ],
   "issuerEndpoint": "https://acme-v02.api.letsencrypt.org/directory",
   "issuerEmail": "twplatformlabs@gmail.com"
