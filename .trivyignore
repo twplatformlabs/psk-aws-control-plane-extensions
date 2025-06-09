@@ -11,7 +11,11 @@ AVD-KSV-0032
 AVD-KSV-0033
 AVD-KSV-0034
 AVD-KSV-0035
+AVD-KSV-0125
 
 # Not applying limit/request policy levels
 AVD-KSV-0039
 AVD-KSV-0040
+
+# default security context used by text fixtures
+AVD-KSV-0118
